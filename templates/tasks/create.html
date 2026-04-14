@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}タスク作成{% endblock %}
+
+{% block content %}
+<h2>タスク作成</h2>
+
+<form method="POST">
+    <div>
+        <label>タイトル</label><br>
+        <input type="text" name="title" required>
+    </div>
+
+    <div>
+        <label>詳細</label><br>
+        <textarea name="description"></textarea>
+    </div>
+
+    <button type="submit">作成</button>
+</form>
+
+<a href="{{ url_for('tasks.task_list') }}">一覧へ戻る</a>
+{% endblock %}
