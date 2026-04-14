@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title%}タスク一覧{% endblock %}
+
+{% block content %}
+<h2>タスク一覧画面</h2>
+
+<p>ようこそ、{{ session["user_name"] }}さん</p>
+
+<p>
+    <a href="{{ url_for('tasks.task_create') }}">タスク作成へ</a>
+</p>
+
+{% if tasks %}
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>タイトル</th>
+                <th>詳細</th>
+                <th>状態</th>
+                <th>期限日</th>
+                <th>作成日時</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.title }}</td>
+                <td>
+                    <a href="{{ url_for('tasks.task_detail', task_id=task.id) }}">詳細へ</a>
+                </td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.due_date if task.due_date else "未設定" }}</td>
+                <td>{{ task.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>まだタスクはありません</p>
+{% endif %}
+
+<form method="POST" action="{{ url_for('auth.logout') }}" style="margin-top: 16px;">
+    <button type="submit">ログアウト</button>
+</form>
+{% endblock %}
